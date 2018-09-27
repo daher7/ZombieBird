@@ -9,6 +9,9 @@ public class pajaroZombie : MonoBehaviour {
     [SerializeField] ParticleSystem prefabExplosion;
     [SerializeField] Text marcadorPuntos;
     [SerializeField] float fuerza = 3f;
+    [SerializeField] AudioSource sonidoExplosion;
+    private AudioSource sonidoPuntuacion;
+
     private Rigidbody rb;
     private int puntos = 0;
 
@@ -17,6 +20,9 @@ public class pajaroZombie : MonoBehaviour {
         GameConfig.ArrancaJuego();
         // Asignamos el Rigibody al principio.
         rb = GetComponent<Rigidbody>();
+        sonidoPuntuacion = GetComponent<AudioSource>();
+        
+
         ActualizarMarcador();
     }
 
@@ -25,10 +31,12 @@ public class pajaroZombie : MonoBehaviour {
         {
             Debug.Log("Has pulsado espacio");
             rb.AddForce(Vector3.up * fuerza);
+            
         }
 	}
     private void OnTriggerEnter(Collider other) // Detecta cuando el pajaro "colisiona" con el collider invisible.
     {
+        sonidoPuntuacion.Play();
         puntos++;
         ActualizarMarcador();
     }
@@ -36,6 +44,10 @@ public class pajaroZombie : MonoBehaviour {
     // Colision del pajaro contra una tubería
     private void OnCollisionEnter(Collision collision)
     {
+
+        // Sonido de la explosion
+        sonidoExplosion.Play();
+
         // DETENER EL JUEGO
         GameConfig.ParaJuego();
 

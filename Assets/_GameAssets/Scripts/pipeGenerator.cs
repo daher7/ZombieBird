@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class pipeGenerator : MonoBehaviour {
     [SerializeField] Transform prefabTuberia;
+    [SerializeField] float ratioGeneracionTuberia = 2;
 
 	// Use this for initialization
 	void Start () {
-        InvokeRepeating("GeneratePipe", 0, 1);
+        InvokeRepeating("GeneratePipe", 0, ratioGeneracionTuberia);
 	}
 	
 	// Vamos a crear el script para generar tuberias de forma aleatoria
